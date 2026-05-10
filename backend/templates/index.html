@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pharmacy POS Review</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="hero">
+        <div>
+          <p class="eyebrow">Pharmacy POS Review Desk</p>
+          <h1>Prescription Upload and Inventory Review</h1>
+          <p class="hero-copy">
+            Upload a WhatsApp prescription image and review OCR extraction, stock availability,
+            price, and rack location in one screen.
+          </p>
+        </div>
+        <div class="hero-badge">
+          <span class="badge-label">OCR Model</span>
+          <strong>{{ model_name }}</strong>
+        </div>
+      </header>
+
+      <main class="grid">
+        <section class="panel upload-panel">
+          <div class="panel-head">
+            <h2>New Prescription</h2>
+            <p>Accepts multipart image uploads for the pharmacy workflow.</p>
+          </div>
+
+          <form id="upload-form" data-endpoint="{{ upload_endpoint }}">
+            <label class="file-drop" for="image-input">
+              <input id="image-input" name="image" type="file" accept="image/*" required />
+              <span class="file-drop-title">Choose Prescription Image</span>
+              <span class="file-drop-copy">PNG, JPG, JPEG, WEBP, or BMP</span>
+            </label>
+
+            <button class="primary-button" type="submit">Process Prescription</button>
+          </form>
+
+          <div class="preview-wrap">
+            <div class="preview-head">
+              <h3>Image Preview</h3>
+              <span id="preview-filename">No file selected</span>
+            </div>
+            <img id="image-preview" alt="Prescription preview" hidden />
+          </div>
+
+          <div id="status-banner" class="status-banner" hidden></div>
+        </section>
+
+        <section class="panel results-panel">
+          <div class="panel-head">
+            <h2>POS Review Window</h2>
+            <p>Staff-facing summary of extracted medicines and inventory matches.</p>
+          </div>
+
+          <div id="summary-cards" class="summary-cards">
+            <article class="summary-card">
+              <span>Requested</span>
+              <strong>0</strong>
+            </article>
+            <article class="summary-card">
+              <span>Matched</span>
+              <strong>0</strong>
+            </article>
+            <article class="summary-card">
+              <span>In Stock</span>
+              <strong>0</strong>
+            </article>
+            <article class="summary-card">
+              <span>Not Found</span>
+              <strong>0</strong>
+            </article>
+          </div>
+
+          <div class="result-columns">
+            <section class="subpanel">
+              <div class="subpanel-head">
+                <h3>Extracted Items</h3>
+                <span id="upload-meta">Waiting for upload</span>
+              </div>
+              <div id="extracted-items" class="pill-list empty-state">
+                OCR items will appear here after upload.
+              </div>
+            </section>
+
+            <section class="subpanel">
+              <div class="subpanel-head">
+                <h3>Raw OCR Output</h3>
+              </div>
+              <pre id="ocr-output" class="ocr-output">No OCR response yet.</pre>
+            </section>
+          </div>
+
+          <section class="subpanel table-panel">
+            <div class="subpanel-head">
+              <h3>Inventory Match Table</h3>
+            </div>
+            <div class="table-scroll">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Requested</th>
+                    <th>Matched Brand</th>
+                    <th>Generic</th>
+                    <th>Status</th>
+                    <th>Req Qty</th>
+                    <th>Stock</th>
+                    <th>Price</th>
+                    <th>Rack</th>
+                    <th>Confidence</th>
+                  </tr>
+                </thead>
+                <tbody id="results-body">
+                  <tr>
+                    <td colspan="9" class="empty-table">No prescription processed yet.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+        </section>
+      </main>
+    </div>
+
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+  </body>
+</html>

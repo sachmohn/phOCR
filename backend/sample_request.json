@@ -1,0 +1,29 @@
+{
+  "items": [
+    {
+      "item": "Dolo 650",
+      "dosage": "650mg",
+      "qty": 2
+    },
+    {
+      "item": "Pantoprazole",
+      "dosage": "40mg",
+      "qty": 1
+    },
+    {
+      "item": "Augmentn 625",
+      "dosage": "625mg",
+      "qty": 1
+    },
+    {
+      "item": "Clindamycin",
+      "dosage": "20gm",
+      "qty": 1
+    },
+    {
+      "item": "Unknown Tablet",
+      "dosage": "10mg",
+      "qty": 1
+    }
+  ]
+}
